@@ -1,26 +1,16 @@
-class locales($default="en_US.UTF-8", $available=["en_US.UTF-8 UTF-8"]) {
-  package { locales:
-    ensure => present,
+class locales {
+
+  # Compatibility check
+  $compatible = [ 'CentOS', 'Debian', 'Ubuntu' ]
+  if ! ($::operatingsystem in $compatible) {
+    fail("Module is not compatible with ${::operatingsystem}")
   }
 
-  file { "/etc/locale.gen":
-    content => inline_template('<%= available.join("\n") + "\n" %>'),
+  case $::operatingsystem {
+      /^Debian./ : { include puppet-module-locales::locales-debian }
+      /^Ubuntu./ : { include puppet-module-locales::locales-debian }
+      /^Centos./ : { include puppet-module-locales::locales-centos }
   }
 
-  file { "/etc/default/locale":
-    content => inline_template('LANG=<%= default + "\n" %>'),
-  }
-
-  exec { "locale-gen":
-    subscribe => [File["/etc/locale.gen"], File["/etc/default/locale"]],
-    refreshonly => true,
-  }
-
-  exec { "update-locale":
-    subscribe => [File["/etc/locale.gen"], File["/etc/default/locale"]],
-    refreshonly => true,
-  }
-
-  Package[locales] -> File["/etc/locale.gen"] -> File["/etc/default/locale"]
-  -> Exec["locale-gen"] -> Exec["update-locale"]
 }
+
