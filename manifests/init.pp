@@ -9,7 +9,7 @@ class locales {
   case $::operatingsystem {
       /^Debian./ : { include locales::dist::debian }
       /^Ubuntu./ : { include locales::dist::debian }
-      /^Centos./ : { include locales::dist::centos }
+      /^CentOS./ : { include locales::dist::centos }
   }
 
 }
