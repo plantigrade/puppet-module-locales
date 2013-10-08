@@ -1,4 +1,4 @@
-class locales-debian {
+class locales::dist::debian {
 
   $default = $::locale_default ? {
     ''      => 'en_US.UTF-8',

@@ -1,4 +1,4 @@
-class locales-centos {
+class locales::dist::centos {
 
   $default = $::locale_default ? {
     ''      => 'en_US.UTF-8',
