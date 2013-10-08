@@ -27,16 +27,18 @@ class locales::dist::centos {
 
     exec { "localedef_$current_output":
       command => "localdef -i $current_input -f $current_charmap $current_output",
-      onlyif  => "! locale -a | grep $current_output",
+      onlyif  => "locale -a | grep $current_output ; test $? -ne 0",
       notify  => Exec['build-locale-archive'],
     }
 
   }
 
-  locale_add { $available }
+  locale_add { $available: }
 
   exec { 'build-locale-archive':
     refreshonly => true,
     require => Package['glibc-common'],
   }
+
+}
 
