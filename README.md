@@ -3,10 +3,6 @@ Puppet Locales Module
 
 Module for configuring locales.
 
-Tested on Debian GNU/Linux 6.0 Squeeze and Ubuntu 10.4 LTS with
-Puppet 2.6. Patches for other operating systems are welcome.
-
-
 Installation
 ------------
 
@@ -21,18 +17,3 @@ providing the module directory you cloned this repo to:
     puppet apply --modulepath=modules test_locales.pp
 
 
-Usage
------
-
-If you include the locales class the standard available locale list and
-default locale will be build and configured:
-
-    include locales
-
-You can override the default locale and available locales by including
-the module with this special syntax:
-
-    class { locales:
-      default => "nb_NO.UTF-8",
-      available => ["nb_NO.UTF-8 UTF-8", "en_GB.UTF-8 UTF-8"]
-    }

@@ -7,9 +7,9 @@ class locales {
   }
 
   case $::operatingsystem {
-      /^Debian./ : { include puppet-module-locales::locales-debian }
-      /^Ubuntu./ : { include puppet-module-locales::locales-debian }
-      /^Centos./ : { include puppet-module-locales::locales-centos }
+      /^Debian./ : { include locales::dist::debian }
+      /^Ubuntu./ : { include locales::dist::debian }
+      /^Centos./ : { include locales::dist::centos }
   }
 
 }
